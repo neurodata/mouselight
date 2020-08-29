@@ -5,6 +5,7 @@ import numpy as np
 from brainlit.utils.session import NeuroglancerSession
 from brainlit.utils.swc import graph_to_paths
 from skimage import draw
+from skimage.morphology import distance_transform_edt
 from pathlib import Path
 
 URL = "s3://mouse-light-viz/precomputed_volumes/brain1"
@@ -279,3 +280,15 @@ def test_tubes_exact():
     for i in range(10):  # set middle column to zero
         tubes[5, 5, i] = 0
     assert (tubes == 0).all()  # now everything should be zero
+
+
+def test_tubes_radius_exact():
+    """Tests that exact pixels are filled with with specific radius.
+    """
+    img = np.zeros((10, 10, 10))
+    verts = [[0, 5, 5], [10, 5, 5]]
+    indices = distance_transform_edt(verts[0], verts[1], return_indices=True)
+    tubes = tube_seg.tubes_from_paths(img.shape, [verts], radius=2)
+    assert tubes.shape == img.shape
+    assert (tubes[indices] == 1).all()
+    assert (tubes[~indices] == 0).all()

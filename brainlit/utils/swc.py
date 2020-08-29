@@ -507,9 +507,12 @@ def swc2skeleton(swc_file, origin=None):
     )
     # add offset to vertices
     # and shift by origin
+    # print(skel.vertices[0])
     skel.vertices += offset
+    # print(skel.vertices[0])
     if origin is not None:
         skel.vertices -= origin
+    # print(skel.vertices[0])
     # convert from microns to nanometers
     skel.vertices *= 1000
     skel.vertex_color = np.zeros((skel.vertices.shape[0], 4), dtype="float32")

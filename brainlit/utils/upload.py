@@ -380,6 +380,7 @@ def upload_segments(input_path, precomputed_path, num_mips):
         raise ValueError(f"Number of resolutions should be > 0, not {num_mips}")
 
     (_, _, vox_size, img_size, origin) = get_volume_info(input_path, num_mips,)
+    print(vox_size)
     vols = create_cloud_volume(
         precomputed_path, img_size, vox_size, num_mips, layer_type="segmentation",
     )

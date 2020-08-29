@@ -95,6 +95,7 @@ class NeuroglancerSession:
             raise ValueError(f"{v_id} should be between 0 and {len(seg)}.")
 
         vertex = seg[v_id]
+        print(vertex)
         voxel = np.round(
             np.divide(vertex, self.cv_segments.scales[self.mip]["resolution"])
         ).astype(int)

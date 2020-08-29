@@ -1,0 +1,24 @@
+Offset and position (microns) (*.swc)
+74327.335761 16941.164970 35578.765018
+-387.114438 1928.663327 -1846.508302
+
+Add offset (location in spatial coordinates, microns)
+73940.22132299999 18869.828297 33732.256715999996
+
+Origin/1000 (microns) (tranform.txt)
+70093.276 15071.596 29306.737
+
+XYZ = Transform to origin = (0, 0, 0)
+3846.9453229999926 3798.2322970000005 4425.519715999995
+
+SF = Scale factor/1000 (microns) (transform.txt)
+19.12059090909091 19.4826175 63.25786538461538
+
+SF/(2**(i)), is scale factor at resoluion i
+
+Resolution goes from 0 (lowest) to 6 (highest)
+So the lowres is XYZ/(SF)
+Highres is XYZ/(SF/2**6)
+
+To get highres now is just
+12876.406479411746 12477.115408543028 4477.439447283079
