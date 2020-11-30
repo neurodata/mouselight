@@ -42,7 +42,7 @@ Notebooks showing how to manually and automatically segment data.
 
 .. _algorithm_tutorials:
 
-Algortihms
+Algorithms
 ==========
 
 Adaptive Thresholding
