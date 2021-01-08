@@ -4,6 +4,7 @@ from brainlit.preprocessing.image_process import (
     gabor_filter,
     getLargestCC,
     removeSmallCCs,
+    griddedInterpolant,
 )
 from numpy.testing import (
     assert_equal,

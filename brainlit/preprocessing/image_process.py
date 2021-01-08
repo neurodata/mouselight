@@ -14,34 +14,56 @@ import collections
 import numbers
 
 
-# Base implementation based on scipy's implementation, plan is to move things to scipy then add more methods.
+# Base implementation based on scipy's implementation, plan is to move things to Cython then add more methods.
 class griddedInterpolant(object):
+
     def __init__(self, points, values, method="linear", extrapolation_method="linear"):
         if method not in ["linear"]:
             raise ValueError("Method '{}' is not defined".format(method))
         self.method = method
-        self.extrapolation_method = extrapolation_method 
+        self.extrapolation_method = extrapolation_method
 
-        if not hasattr(values, 'ndim') or not hasattr(values, "shape"):
+        if not hasattr(values, "ndim") or not hasattr(values, "shape"):
             values = np.asarray(values)
-        
-        if len(points) > values.ndim:
-            raise ValueError("There are {} point arrays, but values has {} dimensions".format(len(points, values.ndim)))
 
-        if hasattr(values, 'dtype') and hasattr(values, 'astype'):
-            if not np.issubdtype(values.dype, np.inexact):
+        if len(points) > values.ndim:
+            raise ValueError(
+                "There are {} point arrays, but values has {} dimensions".format(
+                    len(points, values.ndim)
+                )
+            )
+
+        if hasattr(values, "dtype") and hasattr(values, "astype"):
+            if not np.issubdtype(values.dtype, np.inexact):
                 values = values.astype(float)
-        
+
         for i, p in enumerate(points):
-            if not np.all(np.diff(p) > 0.):
-                raise ValueError("The points in dimension {} must be strictly ascending".format(i))
+            if not np.all(np.diff(p) > 0.0):
+                raise ValueError(
+                    "The points in dimension {} must be strictly ascending".format(i)
+                )
             if not np.asarray(p).ndim == 1:
-                raise ValueError("The points in dimension {} must be 1-dimensional".format(i))
+                raise ValueError(
+                    "The points in dimension {} must be 1-dimensional".format(i)
+                )
             if not values.shape[i] == len(p):
-                raise ValueError("There are {} points and {} values in dimension {}".format(len(p), values.shape[i], i))
+                raise ValueError(
+                    "There are {} points and {} values in dimension {}".format(
+                        len(p), values.shape[i], i
+                    )
+                )
 
         self.grid = tuple([np.asarray(p) for p in points])
         self.values = values
+
+    def __call__(self, xi, method=None):
+        method = self.method if method is None else method
+        if method not in ["linear"]:
+            raise ValueError("Method {} is not defined".format(method))
+
+        ndim = len(self.grid)
+
+    
 
 
 
