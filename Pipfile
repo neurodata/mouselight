@@ -19,6 +19,9 @@ pyOpenSSL = "==19.1.0"
 SimpleITK = "==2.0.0"
 
 [dev-packages]
+pylint = "*"
+brainlit = {editable = true, path = "."}
+cython = "*"
 
 [requires]
 python_version = "3.8"

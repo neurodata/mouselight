@@ -8,7 +8,7 @@ DESCRIPTION = "Code to process and analyze brainlit data"
 with open("README.md", "r") as f:
     LONG_DESCRIPTION = f.read()
 AUTHOR = (
-    "Bijan Varjivand, Ryan Lu, Matt Figdore, Alex Fiallos, Stanley Wang, Victor Wang",
+    "Bijan Varjivand-, Ryan Lu, Matt Figdore, Alex Fiallos, Stanley Wang, Victor Wang",
 )
 AUTHOR_EMAIL = "bvarjav1@jhu.edu"
 URL = "https://github.com/neurodata/brainlit"

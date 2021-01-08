@@ -12,6 +12,7 @@ from brainlit.utils.util import (
 )
 import collections
 import numbers
+from .interp import say_hello_to
 
 
 # Base implementation based on scipy's implementation, plan is to move things to Cython then add more methods.
@@ -62,7 +63,7 @@ class griddedInterpolant(object):
             raise ValueError("Method {} is not defined".format(method))
 
         ndim = len(self.grid)
-
+        say_hello_to("Ryan")
     
 
 
