@@ -157,11 +157,13 @@ def test_splNum():
     neuron.add_node(3, loc=np.array([200, 300, 200]))
     neuron.add_node(4, loc=np.array([300, 400, 200]))
     neuron.add_node(5, loc=np.array([100, 500, 200]))
+    neuron.add_node(6, loc=np.array([300, 500, 200]))
     # add edges
     neuron.add_edge(2, 1)
     neuron.add_edge(2, 3)
     neuron.add_edge(3, 4)
     neuron.add_edge(3, 5)
+    neuron.add_edge(4, 6)
     spline_tree = neuron.fit_spline_tree_invariant()
     # expect to have 2 splines
     assert len(spline_tree.nodes) == 2

@@ -23,7 +23,7 @@ class GeometricGraph(nx.Graph):
 
     The geometry of the neurons are projected on undirected graphs, based on which the trees of neurons consisted for splines is constructed.
     It is required that each node has a loc attribute identifying that points location in space, and the location should be defined in 3-dimensional cartesian coordinates.
-    It extends `nx.Graph`.
+    It extends `nx.Graph` and rejects duplicate node input.
     """
 
     def __init__(self, df=None):
@@ -178,20 +178,14 @@ class GeometricGraph(nx.Graph):
 
         for row, node in enumerate(path):
             x[row, :] = self.nodes[node]["loc"]
-        orig = x.shape[0]
-        x = [xi for i, xi in enumerate(x) if i == 0 or (xi != x[i - 1, :]).any()]
-        x = np.stack(x, axis=0)
-        new = x.shape[0]
-        if orig != new:
-            warnings.warn(
-                f"{orig-new} duplicate points removed in the trace segment",
-                category=UserWarning,
-            )
         path_length = x.shape[0]
         NodeDist = np.linalg.norm(np.diff(x, axis=0), axis=1)
         TotalDist = np.concatenate(([0], np.cumsum(NodeDist)))
-        k = np.amin([path_length - 1, 5])
-        tck, u = splprep([x[:, 0], x[:, 1], x[:, 2]], u=TotalDist, k=k)
+        if path_length != 5:
+            k = np.amin([path_length - 1, 5])
+        else:
+            k = 3
+        tck, u = splprep([x[:, 0], x[:, 1], x[:, 2]], s=0, u=TotalDist, k=k)
 
         return tck, u
 

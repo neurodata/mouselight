@@ -22,6 +22,12 @@ Documentation
 
 .. toctree::
     :maxdepth: 1
+    :caption: Publication Related Code
+
+    experiments
+
+.. toctree::
+    :maxdepth: 1
     :caption: Useful Links
 
     Brainlit @ GitHub <http://www.github.com/neurodata/brainlit/>

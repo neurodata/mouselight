@@ -1,12 +1,10 @@
 Algorithms
 ==========
 
-.. currentmodule:: brainlit.algorithms
+.. currentmodule:: brainlit.algorithms.generate_fragments
 
 Fragment Generation
 -------------------
-
-.. currentmodule:: brainlit.algorithms.generate_fragments
 
 .. autoapifunction:: get_seed
 .. autoapifunction:: get_img_T1
@@ -19,12 +17,12 @@ Fragment Generation
 .. autoapifunction:: otsu
 .. autoapifunction:: gmm_seg
 
-Regression
-----------
+Connect Fragments
+-----------------
 
-.. currentmodule:: brainlit.algorithms.regression
+.. currentmodule:: brainlit.algorithms.detect_somas
 
-.. autoapifunction:: MLP_LR_NN
-.. autoapifunction:: run_classifiers
-.. autoapifunction:: plot_data
+Soma Detection
+--------------
 
+.. autoapifunction:: find_somas

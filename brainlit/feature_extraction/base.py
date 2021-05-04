@@ -184,7 +184,7 @@ class BaseFeatures(BaseEstimator):
             if self.segment_url is None:
                 segment = ngl.cv.skeleton.get(seg_id)
             else:
-                cv_skel = CloudVolume(self.segment_url)
+                cv_skel = CloudVolume(self.segment_url, use_https=True)
                 segment = cv_skel.skeleton.get(seg_id)
             if num_verts is not None and num_verts <= len(segment.vertices):
                 if num_verts <= len(segment.vertices):

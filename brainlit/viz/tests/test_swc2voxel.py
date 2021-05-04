@@ -1,4 +1,4 @@
-from brainlit.algorithms.image_processing import Bresenham3D
+from brainlit.viz.swc2voxel import Bresenham3D
 from pytest import raises
 
 ####################

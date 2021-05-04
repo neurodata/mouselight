@@ -1,6 +1,7 @@
 import numpy as np
 from scipy import ndimage as ndi
 from skimage import draw
+from brainlit.utils.util import check_type
 
 
 def snap_points(img, points, radius=[3, 3, 3]):
@@ -157,6 +158,13 @@ def Bresenham3D(x1, y1, z1, x2, y2, z2):
         [list] -- list of y coordinate connecting the points
         [list] -- list of z coordinate connecting the points
     """
+    check_type(x1, int)
+    check_type(y1, int)
+    check_type(z1, int)
+    check_type(x2, int)
+    check_type(y2, int)
+    check_type(z2, int)
+
     xlist = []
     xlist.append(x1)
     ylist = []

@@ -46,14 +46,13 @@ def generate_brain_trace_data(brain: str, spacing: int):
         string_id = str(i).zfill(3)
         seg_swc_path = os.path.join(
             segments_swc_dir,
-            "{}_G-{}_consensus.swc".format(
+            "{}_g-{}_consensus.swc".format(
                 "2018-08-01" if brain == "brain1" else "2018-12-01", string_id
             ),
         )
         if os.path.exists(seg_swc_path) is True:
             swc_trace = NeuronTrace(path=seg_swc_path)
             df_swc_offset_neuron = swc_trace.get_df()
-            #df_swc_offset_neuron, _, _, _ = swc.read_swc_offset(seg_swc_path)
             print("Loaded segment {}".format(i))
             G = GeometricGraph(df=df_swc_offset_neuron)
             print("Initialized GeometricGraph")
@@ -68,7 +67,7 @@ def generate_brain_trace_data(brain: str, spacing: int):
                 spline = spline_tree.nodes[node]
                 spline_height = node_height(spline_tree, node)
                 if spline_height == 0:
-                    spline_class = "axon"
+                    spline_class = "primary"
                 else:
                     successors = spline_tree.successors(node)
                     if len(list(successors)) == 0:

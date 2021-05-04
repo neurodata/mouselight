@@ -19,7 +19,7 @@ REQUIRED_PACKAGES = [
     "numpy>=1.8.1",
     "scikit-learn>=0.19.1",
     "scikit-image>=0.16.2",
-#     "opencv-python==4.2.0.32",
+    "opencv-python==4.2.0.32",
     "scipy>=1.1.0",
     "seaborn>=0.9.0",
     "simpleitk>=1.2.4",

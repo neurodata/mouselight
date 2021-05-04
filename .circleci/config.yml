@@ -50,6 +50,6 @@ jobs:
           command: |
             . venv/bin/activate
             pytest --cov=brainlit brainlit/
-            black --check --diff ./brainlit ./tests
+            black --check --diff ./brainlit
             codecov
 
