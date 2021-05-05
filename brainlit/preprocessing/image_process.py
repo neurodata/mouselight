@@ -12,7 +12,8 @@ from brainlit.utils.util import (
 )
 import collections
 import numbers
-from .interp import say_hello_to
+from .interp import say_hello_to, _ndim_coords_from_arrays
+import itertools
 
 
 # Base implementation based on scipy's implementation, plan is to move things to Cython then add more methods.
@@ -63,7 +64,56 @@ class griddedInterpolant(object):
             raise ValueError("Method {} is not defined".format(method))
 
         ndim = len(self.grid)
-        say_hello_to("Ryan")
+        xi = _ndim_coords_from_arrays(xi, ndim=ndim)
+        
+        if xi.shape[-1] != len(self.grid):
+            raise ValueError("The requested sample points xi have dimension "
+                             "%d, but this RegularGridInterpolator has "
+                             "dimension %d" % (xi.shape[1], ndim))
+        
+        xi_shape = xi.shape
+        xi = xi.reshape(-1, xi_shape[-1])
+
+        indices, norm_distances, out_of_bounds = self._find_indices(xi.T)
+        if method == "linear":
+            result = self._evaluate_linear(indices,
+                                           norm_distances,
+                                           out_of_bounds)
+        return result.reshape(xi_shape[:-1] + self.values.shape[ndim:])
+
+    def _evaluate_linear(self, indices, norm_distances, out_of_bounds):
+        # slice for broadcasting over trailing dimensions in self.values
+        vslice = (slice(None),) + (None,)*(self.values.ndim - len(indices))
+
+        # find relevant values
+        # each i and i+1 represents a edge
+        edges = itertools.product(*[[i, i + 1] for i in indices])
+        values = 0.
+        for edge_indices in edges:
+            weight = 1.
+            for ei, i, yi in zip(edge_indices, indices, norm_distances):
+                weight *= np.where(ei == i, 1 - yi, yi)
+            values += np.asarray(self.values[edge_indices]) * weight[vslice]
+        return values
+    
+    def _find_indices(self, xi):
+        # find relevant edges between which xi are situated
+        indices = []
+        # compute distance to lower edge in unity units
+        norm_distances = []
+        # check for out of bounds xi
+        out_of_bounds = np.zeros((xi.shape[1]), dtype=bool)
+        # iterate through dimensions
+        for x, grid in zip(xi, self.grid):
+            i = np.searchsorted(grid, x) - 1
+            i[i < 0] = 0
+            i[i > grid.size - 2] = grid.size - 2
+            indices.append(i)
+            norm_distances.append((x - grid[i]) /
+                                  (grid[i + 1] - grid[i]))
+            out_of_bounds += x < grid[0]
+            out_of_bounds += x > grid[-1]
+        return indices, norm_distances, out_of_bounds
     
 
 
