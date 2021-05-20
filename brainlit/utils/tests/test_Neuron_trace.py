@@ -10,16 +10,10 @@ import pytest
 from pathlib import Path
 import networkx.algorithms.isomorphism as iso
 
-top_level = Path(__file__).parents[3] / "data"
-input = (top_level / "data_octree").as_posix()
-url = str((top_level / "test_upload"))
-# p = "file://" + str(top_level)
-url_seg = "file://" + url + "_segments"
-# url_seg = "../data/test_upload_segments/"
-url = url + "/serial"
 swc_path = "./data/data_octree/consensus-swcs/2018-08-01_G-002_consensus.swc"
 
-# url_seg = 's3://open-neurodata/brainlit/brain1_segments'
+
+url_seg = "s3://open-neurodata/brainlit/brain1_segments"
 seg_id = 2
 mip = 0
 

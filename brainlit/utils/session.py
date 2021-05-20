@@ -50,7 +50,7 @@ class NeuroglancerSession:
         mip: int = 0,
         url_segments: Optional[str] = None,
         fill_missing: bool = True,
-        use_https: bool = True,
+        use_https: bool = False,
     ):
         check_precomputed(url)
         check_type(mip, (int, np.integer))

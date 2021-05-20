@@ -36,6 +36,10 @@ jobs:
           # app-dir: ~/project/package-directory/  # If you're requirements.txt isn't in the root directory.
           # pip-dependency-file: test-requirements.txt  # if you have a different name for your requirements file, maybe one that combines your runtime and test requirements.
       - run:
+          name: aws key
+          command: |
+           bash ./.aws.sh
+      - run:
           name: install python dependencies
           # This assumes pytest is installed via the install-package step above
           command: |
@@ -52,4 +56,5 @@ jobs:
             pytest --cov=brainlit brainlit/
             black --check --diff ./brainlit
             codecov
+    
 
