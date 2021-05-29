@@ -1,12 +1,13 @@
 from typing import Tuple
 
 import numpy as np
-from skimage import filters, morphology, measure
+from skimage import filters, morphology, measure, exposure
 import pandas as pd
 from scipy import ndimage
 
 from brainlit.utils.util import check_type, check_iterable_type
 
+import matplotlib.pyplot as plt
 
 def find_somas(volume: np.ndarray, res: list) -> Tuple[int, np.ndarray, np.ndarray]:
     r"""Find bright neuron somas in an input volume.
@@ -82,7 +83,7 @@ def find_somas(volume: np.ndarray, res: list) -> Tuple[int, np.ndarray, np.ndarr
     if np.any([el == 0 for el in res]):
         raise ValueError("Resolution must be non-zero at every position")
 
-    desired_size = np.array([160, 160, 50])
+    desired_size = np.array([100, 100, 50])
     zoom_factors = np.divide(desired_size, volume.shape)
     res = np.divide(res, zoom_factors)
     out = ndimage.zoom(volume, zoom=zoom_factors)
@@ -91,7 +92,7 @@ def find_somas(volume: np.ndarray, res: list) -> Tuple[int, np.ndarray, np.ndarr
     t = filters.threshold_otsu(out)
     out = out > t
     # 2) erode with structuring element proportional to zoom factors
-    selem_size = np.amax(np.ceil(zoom_factors)).astype(int)
+    selem_size = np.ceil(np.amax(zoom_factors)).astype(int)
     clean_selem = morphology.octahedron(selem_size)
     out = morphology.erosion(out, clean_selem)
     # 3) identify connected components

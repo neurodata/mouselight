@@ -76,3 +76,9 @@ experiments/soma_detection/figures/
 experiments/soma_detection/data/
 experiments/soma_detection/secrets/
 **.ipynb_checkpoints/
+
+experiments/soma_detection_lightsheet/.ipynb_checkpoints/
+experiments/soma_detection_lightsheet/figures/
+experiments/soma_detection_lightsheet/data/
+experiments/soma_detection_lightsheet/secrets/
+**.ipynb_checkpoints/
