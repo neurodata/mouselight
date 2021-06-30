@@ -1076,3 +1076,31 @@ class NeuronTrace:
         skel.vertex_color[:, :] = color
 
         return skel
+
+    def get_angle(v1, v2):
+        """
+        Finds angle between two vectors
+
+        Parameters
+        ----------
+        v1 : array-like
+            List representing a vector.
+
+        v2 : array-like
+            List representing a second vector.
+
+        Returns
+        -------
+        angle : float
+            Resulting angle calculated between the two vectors.
+        """
+        # find unit vectors that are in the same direction
+        unit_v1 = v1 / np.linalg.norm(v1)
+        unit_v2 = v2 / np.linalg.norm(v2)
+
+        dot_product = np.dot(
+            unit_v1, unit_v2
+        )  # dot product = cosine of the angle between 2 vectors
+        angle = np.arccos(dot_product)  # take arccos
+
+        return angle
